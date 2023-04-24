@@ -1,5 +1,5 @@
 // selectores de elementos
-
+const inicio = document.querySelector("#home");
 const championBtn = document.querySelector("#champion");
 const ultimateBtn = document.querySelector("#ultimate");
 const megaBtn = document.querySelector("#mega");
@@ -12,6 +12,11 @@ const showAllBtn = document.querySelector("#show-all");
 const renderSpace = document.querySelector("#render");
 const searchBtn = document.querySelector("#search-btn");
 const errorMsg = document.querySelector("#error");
+const welcome = document.querySelector("#welcome");
+
+const nameDigimon = document.querySelector("#name");
+const levelDigimon = document.querySelector("#level");
+const imgDigimon = document.querySelector("#url");
 
 // URLs
 
@@ -28,25 +33,34 @@ const armorURL = "https://digimon-api.vercel.app/api/digimon/level/armor";
 
 // funciones
 
-function renderDigimons(level) {
+function hideWelcome() {
+  welcome.style.display = "none";
+}
+
+function renderByLevel(level) {
   fetch(level)
     .then((response) => response.json())
     .then((data) => {
-      data.map((digimon) => {
-        renderSpace.innerHTML += `
-            <div class="col">
-                <div class="d-flex flex-column card h-100">
-                <img src="${digimon.img}" class="card-img-top" alt="${digimon.name}" >
-                <div class="card-body">
-                    <h5 class="card-title">${digimon.name}</h5>
-                    <p class="card-text">${digimon.level}</p>
-                </div>
-                </div>
-            </div>
-            `;
-      });
+      renderDigimons(data)
     });
 }
+
+function renderDigimons(data) {
+  data.map((digimon) => {
+    renderSpace.innerHTML += `
+        <div class="col">
+            <div class="d-flex flex-column card h-100">
+            <img src="${digimon.img}" class="card-img-top" alt="${digimon.name}">
+            <div class="card-body">
+                <h5 class="card-title">${digimon.name}</h5>
+                <p class="card-text">${digimon.level}</p>
+            </div>
+            </div>
+        </div>
+        `;
+  });
+}
+
 
 function findDigimon() {
   const searchInput = document.querySelector("#search-input");
@@ -60,83 +74,86 @@ function findDigimon() {
     .then(handleErrors)
     .then((response) => response.json())
     .then((data) => {
-      data.map((digimon) => {
-        renderSpace.innerHTML += `
-                    <div class="col">
-                        <div class="d-flex flex-column card h-100">
-                            <img src="${digimon.img}" class="card-img-top" alt="${digimon.name}" >
-                            <div class="card-body">
-                                <h5 class="card-title">${digimon.name}</h5>
-                                <p class="card-text">${digimon.level}</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-      });
+      renderDigimons(data);
     })
     .catch((error) => {
       clearAll();
-      errorMsg.style.visibility = "visible";
-      errorMsg.textContent = "Lo sentimos, no pudimos encontrar ningun digimon con ese nombre.";
+      welcome.style.display = "none";
+      errorMsg.style.display = "block";
     });
 }
 
 // funcion para limpiar el render
 
 function clearAll() {
-  errorMsg.textContent = "";
+  errorMsg.style.display = "none";
+  welcome.style.display = "block";
   renderSpace.innerHTML = "";
 }
 
 // event listeners
 
+home.addEventListener("click", function () {
+  clearAll();
+});
+
 showAllBtn.addEventListener("click", function () {
   clearAll();
-  renderDigimons(allURL);
+  hideWelcome();
+  renderByLevel(allURL);
 });
 
 rookieBtn.addEventListener("click", function () {
   clearAll();
-  renderDigimons(rookieURL);
+  hideWelcome();
+  renderByLevel(rookieURL);
 });
 
 babyBtn.addEventListener("click", function () {
   clearAll();
-  renderDigimons(babyURL);
+  hideWelcome();
+  renderByLevel(babyURL);
 });
 
 inTrainingBtn.addEventListener("click", function () {
   clearAll();
-  renderDigimons(inTrainingURL);
+  hideWelcome();
+  renderByLevel(inTrainingURL);
 });
 
 freshBtn.addEventListener("click", function () {
   clearAll();
-  renderDigimons(freshURL);
+  hideWelcome();
+  renderByLevel(freshURL);
 });
 
 championBtn.addEventListener("click", function () {
   clearAll();
-  renderDigimons(championURL);
+  hideWelcome();
+  renderByLevel(championURL);
 });
 
 ultimateBtn.addEventListener("click", function () {
   clearAll();
-  renderDigimons(ultimateURL);
+  hideWelcome();
+  renderByLevel(ultimateURL);
 });
 
 megaBtn.addEventListener("click", function () {
   clearAll();
-  renderDigimons(megaURL);
+  hideWelcome();
+  renderByLevel(megaURL);
 });
 
 armorBtn.addEventListener("click", function () {
   clearAll();
-  renderDigimons(armorURL);
+  hideWelcome();
+  renderByLevel(armorURL);
 });
 
 searchBtn.addEventListener("click", function (event) {
   event.preventDefault();
   clearAll();
+  hideWelcome();
   findDigimon();
 });
