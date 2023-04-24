@@ -20,7 +20,7 @@
     <title>Final Drilling Modulo 2 - Digimon API</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-md bg-body-tertiary">
       <div class="container-fluid">
         <img
           src="./assets/img/Site-logo.webp"
@@ -42,10 +42,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Mis favoritos</a>
+              <a class="nav-link active" aria-current="page" href="#" id="home">Inicio</a>
             </li>
             <li class="nav-item dropdown">
               <a
@@ -83,7 +80,7 @@
               </ul>
             </li>
           </ul>
-          <form class="d-flex" role="search">
+          <form class="d-flex col-auto" role="search">
             <input
               id="search-input"
               class="form-control me-2"
@@ -92,7 +89,7 @@
               aria-label="Search"
             />
             <button
-              class="btn btn-outline-success"
+              class="btn btn-outline-primary"
               type="submit"
               id="search-btn"
             >
@@ -102,14 +99,20 @@
         </div>
       </div>
     </nav>
-    <div>
-      <h3
-        class="position-absolute top-50 start-50 translate-middle"
-        id="error"
-        style="visibility: hidden"
-      >
-        <!-- aqui va el mensaje de error -->
-      </h3>
+    <div class="d-flex flex-column align-items-center mt-5 text-center">
+      <div id="welcome">
+        <h3>Bienvenidos a Digimon World!</h3>
+        <p>Puedes visualizar todos Digimons por Nivel desde el menú</p>
+        <p>O puedes buscar por nombre </p>
+      </div>
+      <div>
+        <h3
+          id="error"
+          style="display: none;"
+        >
+          Lo sentimos, no pudimos encontrar ningún Digimon con ese nombre.
+        </h3>
+      </div>
     </div>
     <div class="container-fluid">
       <div class="row row-cols-1 row-cols-sm-3 row-cols-md-5 g-4" id="render">
